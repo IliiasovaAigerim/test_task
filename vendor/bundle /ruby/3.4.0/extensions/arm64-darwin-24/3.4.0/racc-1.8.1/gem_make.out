@@ -1,0 +1,18 @@
+current directory: /Users/gesha/environment/test_task/vendor/bundle /ruby/3.4.0/gems/racc-1.8.1/ext/racc/cparse
+/Users/gesha/.rbenv/versions/3.4.7/bin/ruby extconf.rb
+creating Makefile
+
+current directory: /Users/gesha/environment/test_task/vendor/bundle /ruby/3.4.0/gems/racc-1.8.1/ext/racc/cparse
+make DESTDIR\= sitearchdir\=./.gem.20251203-80224-p2hkci sitelibdir\=./.gem.20251203-80224-p2hkci clean
+
+current directory: /Users/gesha/environment/test_task/vendor/bundle /ruby/3.4.0/gems/racc-1.8.1/ext/racc/cparse
+make DESTDIR\= sitearchdir\=./.gem.20251203-80224-p2hkci sitelibdir\=./.gem.20251203-80224-p2hkci
+compiling cparse.c
+linking shared-object racc/cparse.bundle
+
+current directory: /Users/gesha/environment/test_task/vendor/bundle /ruby/3.4.0/gems/racc-1.8.1/ext/racc/cparse
+make DESTDIR\= sitearchdir\=./.gem.20251203-80224-p2hkci sitelibdir\=./.gem.20251203-80224-p2hkci install
+/opt/homebrew/bin/ginstall -c -m 0755 cparse.bundle ./.gem.20251203-80224-p2hkci/racc
+
+current directory: /Users/gesha/environment/test_task/vendor/bundle /ruby/3.4.0/gems/racc-1.8.1/ext/racc/cparse
+make DESTDIR\= sitearchdir\=./.gem.20251203-80224-p2hkci sitelibdir\=./.gem.20251203-80224-p2hkci clean

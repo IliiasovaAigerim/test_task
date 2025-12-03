@@ -1,0 +1,19 @@
+current directory: /Users/gesha/environment/test_task/vendor/bundle /ruby/3.4.0/gems/debug-1.11.0/ext/debug
+/Users/gesha/.rbenv/versions/3.4.7/bin/ruby extconf.rb
+creating Makefile
+
+current directory: /Users/gesha/environment/test_task/vendor/bundle /ruby/3.4.0/gems/debug-1.11.0/ext/debug
+make DESTDIR\= sitearchdir\=./.gem.20251203-80224-pzvhm9 sitelibdir\=./.gem.20251203-80224-pzvhm9 clean
+
+current directory: /Users/gesha/environment/test_task/vendor/bundle /ruby/3.4.0/gems/debug-1.11.0/ext/debug
+make DESTDIR\= sitearchdir\=./.gem.20251203-80224-pzvhm9 sitelibdir\=./.gem.20251203-80224-pzvhm9
+compiling debug.c
+compiling iseq_collector.c
+linking shared-object debug/debug.bundle
+
+current directory: /Users/gesha/environment/test_task/vendor/bundle /ruby/3.4.0/gems/debug-1.11.0/ext/debug
+make DESTDIR\= sitearchdir\=./.gem.20251203-80224-pzvhm9 sitelibdir\=./.gem.20251203-80224-pzvhm9 install
+/opt/homebrew/bin/ginstall -c -m 0755 debug.bundle ./.gem.20251203-80224-pzvhm9/debug
+
+current directory: /Users/gesha/environment/test_task/vendor/bundle /ruby/3.4.0/gems/debug-1.11.0/ext/debug
+make DESTDIR\= sitearchdir\=./.gem.20251203-80224-pzvhm9 sitelibdir\=./.gem.20251203-80224-pzvhm9 clean
