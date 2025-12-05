@@ -137,5 +137,5 @@ jobs:
 
       - name: Run Tests
         run: bundle exec rails db:test:prepare
-        with:
+        env:
           DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
