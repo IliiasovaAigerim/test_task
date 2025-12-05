@@ -36,5 +36,3 @@
 /vendor/bundle /*
 
 /Gemfile_local
-
-/.rubocop_todo.yml

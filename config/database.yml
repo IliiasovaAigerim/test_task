@@ -12,6 +12,7 @@ development:
   username: test_task_6uud_user
   password: <%= ENV.fetch("DB_PASSWORD") %>
   port: 5432
+  sslmode: require
 
 
 test:
@@ -21,6 +22,7 @@ test:
   username: test_task_6uud_user
   password: <%= ENV.fetch("DB_PASSWORD") %>
   port: 5432
+  sslmode: require
 
 
 production:
