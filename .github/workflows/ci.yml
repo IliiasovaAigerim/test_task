@@ -25,14 +25,6 @@ jobs:
       - name: Scan for known security vulnerabilities in gems used
         run: bin/bundler-audit
 
-  build:
-    steps:
-      - name: Run Tests
-        run: bundle exec rails db:test:prepare
-        env:
-          DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
-    runs-on: ubuntu-latest
-
   scan_js:
     runs-on: ubuntu-latest
 
@@ -131,3 +123,20 @@ jobs:
           name: screenshots
           path: ${{ github.workspace }}/tmp/screenshots
           if-no-files-found: ignore
+
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v5 # <-- Required to get your code and Gemfile.lock
+
+      - name: Set up Ruby
+        uses: ruby/setup-ruby@v1 # <-- This installs Ruby, Bundler, and makes `bundle` available
+        with:
+          # This caches gems and runs `bundle install` for you
+          bundler-cache: true
+
+      - name: Run Tests
+        run: bundle exec rails db:test:prepare
+        env:
+          DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
