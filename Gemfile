@@ -79,4 +79,4 @@ group :development, :test do
 end
 
 
-eval_gemfile 'Gemfile_local' if File.exist?('Gemfile_local')
+# eval_gemfile 'Gemfile_local' if File.exist?('Gemfile_local')
