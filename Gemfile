@@ -67,3 +67,5 @@ group :test do
   gem "capybara"
   gem "selenium-webdriver"
 end
+
+eval_gemfile 'Gemfile_local' if File.exist?('Gemfile_local')

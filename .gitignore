@@ -33,5 +33,6 @@
 # Ignore key files for decrypting credentials and more.
 /config/*.key
 
-/vendor/bundle/
+/vendor/bundle /*
 
+/Gemfile_local
