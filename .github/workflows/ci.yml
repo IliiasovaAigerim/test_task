@@ -24,7 +24,15 @@ jobs:
 
       - name: Scan for known security vulnerabilities in gems used
         run: bin/bundler-audit
-  
+
+  build:
+    steps:
+      - name: Run Tests
+        run: bundle exec rails db:test:prepare
+        env:
+          DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
+    runs-on: ubuntu-latest
+
   scan_js:
     runs-on: ubuntu-latest
 
@@ -123,11 +131,3 @@ jobs:
           name: screenshots
           path: ${{ github.workspace }}/tmp/screenshots
           if-no-files-found: ignore
-
-  build:
-    steps:
-      - name: Run Tests
-        run: bundle exec rails db:test:prepare
-        env:
-          DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
-    runs-on: ubuntu-latest
