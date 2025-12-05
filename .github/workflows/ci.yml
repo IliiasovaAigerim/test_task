@@ -6,6 +6,14 @@ on:
     branches: [ main ]
 
 jobs:
+  build:
+    steps:
+      - name: Run Tests
+        run: bundle exec rails db:test:prepare
+        env:
+          DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
+    runs-on: ubuntu-latest
+
   scan_ruby:
     runs-on: ubuntu-latest
 
@@ -20,10 +28,10 @@ jobs:
 
       - name: Scan for common Rails security vulnerabilities using static analysis
         run: bin/brakeman --no-pager
-      
+
       - name: Scan for known security vulnerabilities in gems used
         run: bin/bundler-audit
-      
+  
   scan_js:
     runs-on: ubuntu-latest
 

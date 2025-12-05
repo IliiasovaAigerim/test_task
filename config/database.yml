@@ -10,8 +10,9 @@ development:
   database: test_task_6uud_dev
   host: dpg-d4oke44hg0os73dic6u0-a.oregon-postgres.render.com
   username: test_task_6uud_user
-  password: <%= ENV.fetch("DB_PASSWORD", "postgres") %>
+  password: <%= ENV.fetch("DB_PASSWORD") %>
   port: 5432
+  sslmode: require
 
 
 test:
@@ -19,8 +20,9 @@ test:
   database: test_task_6uud_test
   host: dpg-d4oke44hg0os73dic6u0-a.oregon-postgres.render.com
   username: test_task_6uud_user
-  password: <%= ENV.fetch("DB_PASSWORD", "postgres") %>
+  password: <%= ENV.fetch("DB_PASSWORD") %>
   port: 5432
+  sslmode: require
 
 
 production:
