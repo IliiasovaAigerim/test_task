@@ -128,15 +128,14 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
-        uses: actions/checkout@v5 # <-- Required to get your code and Gemfile.lock
+        uses: actions/checkout@v5
 
       - name: Set up Ruby
-        uses: ruby/setup-ruby@v1 # <-- This installs Ruby, Bundler, and makes `bundle` available
+        uses: ruby/setup-ruby@v1
         with:
-          # This caches gems and runs `bundle install` for you
           bundler-cache: true
 
       - name: Run Tests
         run: bundle exec rails db:test:prepare
-        env:
+        with:
           DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
