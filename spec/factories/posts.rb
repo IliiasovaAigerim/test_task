@@ -1,8 +1,8 @@
 FactoryBot.define do
   factory :post do
-    title { "MyString" }
-    body { "MyText" }
-    user { nil }
-    ip { "MyString" }
+    title { Faker::Lorem.sentence }
+    body { Faker::Lorem.paragraph }
+    association :user
+    ip { "127.0.0.1" }
   end
 end
