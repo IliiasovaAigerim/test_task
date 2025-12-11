@@ -12,10 +12,10 @@ class Api::V1::PostsController < ApplicationController
       ip: request.remote_ip
     )
     if post.save
-    render json: {
-      post: post.as_json(only: [:id, :title, :body, :ip, :user_id, :created_at]),
-      user: user.as_json(only: [:id, :login])
-    }, status: :created
+      render json: {
+        post: post.as_json(only: [:id, :title, :body, :ip, :user_id, :created_at]),
+        user: user.as_json(only: [:id, :login])
+      }, status: :created
     else
       render json: { errors: post.errors.full_messages }, status: :unprocessable_entity
     end
