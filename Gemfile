@@ -11,6 +11,8 @@ gem 'pg', '~> 1.5'
 
 gem 'devise'
 
+gem 'active_model_serializers'
+
 # Use the Puma web server [https://github.com/puma/puma]
 gem "puma", ">= 5.0"
 # Use JavaScript with ESM import maps [https://github.com/rails/importmap-rails]
