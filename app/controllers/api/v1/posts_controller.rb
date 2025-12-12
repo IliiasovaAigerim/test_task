@@ -20,4 +20,11 @@ class Api::V1::PostsController < ApplicationController
       render json: { errors: post.errors.full_messages }, status: :unprocessable_entity
     end
   end
+
+  def top
+    n = params[:n].to_i
+    return render json: { error: "N must be a positive integer." }, status: :bad_request unless n > 0
+    posts = Post.order(average_rating: :desc).limit(n)
+    render json:posts, each_serializer: TopPostSerializer
+  end
 end
