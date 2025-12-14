@@ -5,6 +5,7 @@ Rails.application.routes.draw do
       resources :posts, only: [:create]
       resources :ratings, only: [:create]
       get 'posts/top/:n', to: 'posts#top', constraints: { n: /\d+/ }
+      get 'ips', to: 'ips#multiple_authors'
     end
   end
   get "up" => "rails/health#show", as: :rails_health_check
