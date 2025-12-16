@@ -1,6 +1,4 @@
 class Api::V1::PostsController < ApplicationController
-  skip_before_action :verify_authenticity_token
-
   def create
     user = current_user || User.find_or_create_by(login: params[:user_login]) do |u|
       u.password = SecureRandom.hex(16)

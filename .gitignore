@@ -36,3 +36,5 @@
 /vendor/bundle /*
 
 /Gemfile_local
+
+/.idea

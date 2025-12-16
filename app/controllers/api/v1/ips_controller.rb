@@ -1,6 +1,4 @@
 class Api::V1::IpsController < ApplicationController
-  skip_before_action :verify_authenticity_token
-
   def multiple_authors
     ips = Post.group(:ip).having('COUNT(DISTINCT(user_id)) > 1').pluck(:ip)
     users_with_ips = User.joins(:posts)

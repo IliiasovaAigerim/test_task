@@ -2,9 +2,9 @@ require 'faker'
 require 'benchmark'
 require 'json'
 
-NUM_OF_POSTS = 1000
-NUM_OF_USERS = 20
-NUM_OF_UNIQUE_IPS = 10
+NUM_OF_POSTS = 50000
+NUM_OF_USERS = 25
+NUM_OF_UNIQUE_IPS = 12
 THREADS = 15
 
 BASE_URL = 'http://localhost:3000/api/v1'
@@ -79,7 +79,7 @@ measure("Creating #{NUM_OF_POSTS} posts (curl + #{THREADS} threads)") do
       curl_post('/posts', payload)
     end
 
-    if jobs.size >= 100
+    if jobs.size >= 1000
       run_parallel(jobs)
       jobs.clear
       print "."
@@ -97,7 +97,7 @@ measure("Creating ratings (75%)") do
   posts_to_rate = post_ids.sample((post_ids.size * 0.75).to_i)
 
   posts_to_rate.each do |post_id|
-    voters = USER_LOGINS.sample(rand(3..6).to_i)
+    voters = USER_LOGINS.sample(rand(1..3).to_i)
 
     voters.each do |login|
       user_id = USER_ID_BY_LOGIN[login]
@@ -112,7 +112,7 @@ measure("Creating ratings (75%)") do
       end
     end
 
-    if jobs.size >= 100
+    if jobs.size >= 1000
       run_parallel(jobs)
       jobs.clear
       print "#"
