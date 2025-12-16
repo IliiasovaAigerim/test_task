@@ -6,10 +6,12 @@ class Api::V1::PostsController < ApplicationController
       u.password = SecureRandom.hex(16)
     end
 
+    ip_address = params[:ip].presence || request.remote_ip
+
     post = user.posts.build(
       title: params[:title],
       body: params[:body],
-      ip: request.remote_ip
+      ip: ip_address
     )
     if post.save
       render json: {
