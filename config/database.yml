@@ -4,25 +4,21 @@ default: &default
   encoding: unicode
   max_connections: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
   timeout: 5000
+  host: localhost
 
 development:
   <<: *default
-  database: test_task_6uud_dev
-  host: dpg-d4oke44hg0os73dic6u0-a.oregon-postgres.render.com
-  username: test_task_6uud_user
+  database: test_app_development
+  username: test_app_user
   password: <%= ENV.fetch("DB_PASSWORD") %>
-  port: 5432
-  sslmode: require
 
 
 test:
   <<: *default
-  database: test_task_6uud_test
-  host: dpg-d4oke44hg0os73dic6u0-a.oregon-postgres.render.com
-  username: test_task_6uud_user
+  database: test_app_test
+  username: test_app_user
   password: <%= ENV.fetch("DB_PASSWORD") %>
-  port: 5432
-  sslmode: require
+
 
 
 production:
