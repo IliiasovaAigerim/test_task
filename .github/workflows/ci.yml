@@ -69,6 +69,13 @@ jobs:
         with:
           bundler-cache: true
 
+      - name: Wait for Database
+        run: |
+          until pg_isready -h postgres -p 5432 -U runner; do
+            echo "Waiting for postgres..."
+            sleep 2
+          done
+
       - name: Prepare DB and Run RSpec Tests
         env:
           DB_HOST: postgres
@@ -93,6 +100,13 @@ jobs:
         uses: ruby/setup-ruby@v1
         with:
           bundler-cache: true
+
+      - name: Wait for Database
+        run: |
+          until pg_isready -h postgres -p 5432 -U runner; do
+            echo "Waiting for postgres..."
+            sleep 2
+          done
 
       - name: Prepare DB and Run RSpec System Tests
         env:
