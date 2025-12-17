@@ -38,14 +38,14 @@ RSpec.describe "Api::V1::PostsController", type: :request do
     end
 
     context 'when login does not exist' do
-      include_examples 'response details'
+      it_behaves_like 'response details'
 
       it 'creates a new user' do
-        expect {request}.to change(User, :count).by(1)
+        expect { request }.to change(User, :count).by(1)
       end
 
       it "creates a post linked to that user" do
-        expect {request}.to change(Post, :count).by(1)
+        expect { request }.to change(Post, :count).by(1)
       end
     end
 
@@ -54,7 +54,7 @@ RSpec.describe "Api::V1::PostsController", type: :request do
         user
       end
 
-      include_examples 'response details'
+      it_behaves_like 'response details'
 
       it 'does not create a new user' do
         expect { request }.not_to change(User, :count)

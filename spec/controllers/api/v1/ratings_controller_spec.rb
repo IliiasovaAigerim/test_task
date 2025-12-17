@@ -5,10 +5,9 @@ RSpec.describe "Api::V1::RatingsController", type: :request do
     let(:headers) do
       { "Content-Type" => "application/json" }
     end
-    let(:request) {post '/api/v1/ratings', params: request_params, headers: headers}
+    let(:request) { post '/api/v1/ratings', params: request_params, headers: headers }
     let(:user) { create(:user) }
     let(:new_post) { create(:post, user: user) }
-
 
     context 'when valid request params' do
       let(:request_params) do
@@ -23,7 +22,7 @@ RSpec.describe "Api::V1::RatingsController", type: :request do
         it 'successfully creates rating' do
           new_post
 
-          expect {request}.to change(Rating, :count).by(1)
+          expect { request }.to change(Rating, :count).by(1)
         end
 
         it 'returns 201 Created' do
@@ -70,7 +69,7 @@ RSpec.describe "Api::V1::RatingsController", type: :request do
         end
 
         it 'fails to create rating' do
-          expect {request}.not_to change(Rating, :count)
+          expect { request }.not_to change(Rating, :count)
         end
 
         it 'returns unprocessable_content (422)' do
@@ -116,15 +115,15 @@ RSpec.describe "Api::V1::RatingsController", type: :request do
         context 'is > 5' do
           let(:value) { 6 }
 
-          include_examples 'response 422'
-          include_examples 'error message'
+          it_behaves_like 'response 422'
+          it_behaves_like 'error message'
         end
 
         context 'is < 1' do
           let(:value) { 0 }
 
-          include_examples 'response 422'
-          include_examples 'error message'
+          it_behaves_like 'response 422'
+          it_behaves_like 'error message'
         end
       end
 
@@ -149,13 +148,12 @@ RSpec.describe "Api::V1::RatingsController", type: :request do
         let(:user_id) {-1}
         let(:value) { 5 }
 
-        include_examples 'response 422'
+        it_behaves_like 'response 422'
 
         it 'returns error message' do
           json_response = JSON.parse(response.body)
           expect(json_response['errors'][0]).to eq("User must exist")
         end
-
       end
     end
   end
