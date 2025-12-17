@@ -105,6 +105,7 @@ RSpec.describe "Api::V1::RatingsController", type: :request do
       context 'when invalid value' do
         let(:user_id) { user.id }
         let(:post_id) { new_post.id }
+
         shared_examples 'error message' do
           it 'returns invalid value error message' do
             json_response = JSON.parse(response.body)
@@ -112,14 +113,14 @@ RSpec.describe "Api::V1::RatingsController", type: :request do
           end
         end
 
-        context 'is > 5' do
+        context 'when value is > 5' do
           let(:value) { 6 }
 
           it_behaves_like 'response 422'
           it_behaves_like 'error message'
         end
 
-        context 'is < 1' do
+        context 'when value is < 1' do
           let(:value) { 0 }
 
           it_behaves_like 'response 422'
@@ -140,7 +141,6 @@ RSpec.describe "Api::V1::RatingsController", type: :request do
           json_response = JSON.parse(response.body)
           expect(json_response['error']).to eql("Post not found")
         end
-
       end
 
       context 'when non-existent user' do

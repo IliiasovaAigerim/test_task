@@ -10,7 +10,7 @@ development:
   <<: *default
   database: test_app_development
   username: test_app_user
-  password: <%= ENV.fetch("DB_PASSWORD") %>
+  password: <%= ENV.fetch("DB_PASSWORD", "") %>
 
 
 test:
