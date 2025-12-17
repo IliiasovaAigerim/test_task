@@ -42,7 +42,7 @@ RSpec.describe "Api::V1::IpsController", type: :request do
       it_behaves_like ":ok status code"
 
       it 'returns empty array' do
-        expect(json_response).to eq([])
+        expect(json_response).to eql([])
       end
     end
   end

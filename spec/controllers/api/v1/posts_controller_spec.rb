@@ -24,16 +24,16 @@ RSpec.describe "Api::V1::PostsController", type: :request do
         request
         body = JSON.parse(response.body)
 
-        expect(body["post"]["title"]).to eq("Test Title")
-        expect(body["post"]["body"]).to eq("Test body content")
-        expect(body["user"]["login"]).to eq(user.login)
+        expect(body["post"]["title"]).to eql("Test Title")
+        expect(body["post"]["body"]).to eql("Test body content")
+        expect(body["user"]["login"]).to eql(user.login)
       end
 
       it "stores request IP in the post" do
         headers.merge!("REMOTE_ADDR" => "123.45.67.89")
         request
 
-        expect(Post.last.ip).to eq("123.45.67.89")
+        expect(Post.last.ip).to eql("123.45.67.89")
       end
     end
 
@@ -63,7 +63,7 @@ RSpec.describe "Api::V1::PostsController", type: :request do
       it 'creates a new post on the same user' do
         request
 
-        expect(Post.last.user_id).to eq(user.id)
+        expect(Post.last.user_id).to be(user.id)
       end
     end
   end
@@ -72,7 +72,7 @@ RSpec.describe "Api::V1::PostsController", type: :request do
     let(:request) { get "/api/v1/posts/top/#{n}" }
     let(:post_first) { create(:post, title: 'first post with rate 2', average_rating: 2) }
     let(:post_second) { create(:post, title: 'second post with rate 5', average_rating: 5) }
-    let(:post_third) { create(:post, title: 'third post with rate 1', average_rating: 1 ) }
+    let(:post_third) { create(:post, title: 'third post with rate 1', average_rating: 1) }
     let(:post_fourth) { create(:post, title: 'fourth post with rate 5', average_rating: 5) }
     let(:json_response) { JSON.parse(response.body) }
 
@@ -93,7 +93,7 @@ RSpec.describe "Api::V1::PostsController", type: :request do
       end
 
       it 'returns n posts' do
-        expect(json_response.count).to eql(3)
+        expect(json_response.count).to be(3)
       end
 
       it 'returns top n posts ordered by average_rating DESC' do
@@ -106,7 +106,7 @@ RSpec.describe "Api::V1::PostsController", type: :request do
         expect(json_response.first.keys).to include('id', 'title', 'body')
       end
 
-      it 'does not return average_rating, ip and user_id'do
+      it 'does not return average_rating, ip and user_id' do
         expect(json_response.first.keys).not_to include('average_rating', 'ip', 'user_id')
       end
     end

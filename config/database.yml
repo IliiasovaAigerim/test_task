@@ -18,7 +18,7 @@ test:
   database: test_app_test
   host: <%= ENV.fetch("DB_HOST", "localhost") %>
   username: <%= ENV.fetch("DB_USER", "test_app_user") %>
-  password: <%= ENV.fetch("DB_PASSWORD") %>
+  password: <%= ENV.fetch("DB_PASSWORD", "") %>
 
 
 

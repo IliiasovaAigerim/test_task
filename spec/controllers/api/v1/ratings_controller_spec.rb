@@ -34,7 +34,7 @@ RSpec.describe "Api::V1::RatingsController", type: :request do
           new_post
           request
 
-          expect(new_post.reload.average_rating).to eql(4.0)
+          expect(new_post.reload.average_rating).to be(4.0)
         end
 
         it 'returns new average rating of the post' do
@@ -42,7 +42,7 @@ RSpec.describe "Api::V1::RatingsController", type: :request do
           request
 
           json_response = JSON.parse(response.body)
-          expect(json_response["average_rating"]).to eq(4.0)
+          expect(json_response["average_rating"]).to be(4.0)
         end
       end
 
@@ -54,11 +54,11 @@ RSpec.describe "Api::V1::RatingsController", type: :request do
 
         it 'calculates average rating correctly' do
           json_response = JSON.parse(response.body)
-          expect(json_response["average_rating"]).to eq(3.0)
+          expect(json_response["average_rating"]).to be(3.0)
         end
 
         it 'updates average rating correctly' do
-          expect(new_post.reload.average_rating).to eq(3.0)
+          expect(new_post.reload.average_rating).to be(3.0)
         end
       end
 
@@ -103,7 +103,7 @@ RSpec.describe "Api::V1::RatingsController", type: :request do
       before { request }
 
       context 'when invalid value' do
-        let(:user_id) {user.id}
+        let(:user_id) { user.id }
         let(:post_id) { new_post.id }
         shared_examples 'error message' do
           it 'returns invalid value error message' do
@@ -129,7 +129,7 @@ RSpec.describe "Api::V1::RatingsController", type: :request do
 
       context 'when trying to rate non-existent post' do
         let(:post_id) { -1 }
-        let(:user_id) {user.id}
+        let(:user_id) { user.id }
         let(:value) { 5 }
 
         it 'returns not found (404)' do
@@ -138,21 +138,21 @@ RSpec.describe "Api::V1::RatingsController", type: :request do
 
         it 'returns error message' do
           json_response = JSON.parse(response.body)
-          expect(json_response['error']).to eq("Post not found")
+          expect(json_response['error']).to eql("Post not found")
         end
 
       end
 
       context 'when non-existent user' do
         let(:post_id) { new_post.id }
-        let(:user_id) {-1}
+        let(:user_id) { -1 }
         let(:value) { 5 }
 
         it_behaves_like 'response 422'
 
         it 'returns error message' do
           json_response = JSON.parse(response.body)
-          expect(json_response['errors'][0]).to eq("User must exist")
+          expect(json_response['errors'][0]).to eql("User must exist")
         end
       end
     end
