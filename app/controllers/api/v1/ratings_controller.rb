@@ -12,7 +12,7 @@ class Api::V1::RatingsController < ApplicationController
       render json: { errors: rating.errors.full_messages }, status: :unprocessable_entity
     end
   rescue ActiveRecord::RecordNotFound
-    return render json: { error: 'Post not found' }, status: :not_found
+    render json: { error: "Post not found" }, status: :not_found
   end
 
   private
