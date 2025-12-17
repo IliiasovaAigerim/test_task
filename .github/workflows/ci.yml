@@ -73,6 +73,7 @@ jobs:
         env:
           DB_HOST: postgres
           DB_USER: runner
+          RAILS_ENV: test
         run: bin/rails db:test:prepare && bundle exec rspec
 
   system-test:
@@ -97,6 +98,7 @@ jobs:
         env:
           DB_HOST: postgres
           DB_USER: runner
+          RAILS_ENV: test
         run: bin/rails db:test:prepare && bundle exec rspec spec/system
 
       - name: Keep screenshots from failed system tests
