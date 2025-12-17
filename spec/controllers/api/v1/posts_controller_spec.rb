@@ -69,11 +69,11 @@ RSpec.describe "Api::V1::PostsController", type: :request do
   end
 
   describe '#top' do
-    let(:request) {get "/api/v1/posts/top/#{n}"}
-    let(:post_first) {create(:post, title: 'first post with rate 2', average_rating: 2)}
-    let(:post_second) {create(:post, title: 'second post with rate 5', average_rating: 5)}
-    let(:post_third) {create(:post, title: 'third post with rate 1', average_rating: 1)}
-    let(:post_fourth) {create(:post, title: 'fourth post with rate 5', average_rating: 5)}
+    let(:request) { get "/api/v1/posts/top/#{n}" }
+    let(:post_first) { create(:post, title: 'first post with rate 2', average_rating: 2) }
+    let(:post_second) { create(:post, title: 'second post with rate 5', average_rating: 5) }
+    let(:post_third) { create(:post, title: 'third post with rate 1', average_rating: 1 ) }
+    let(:post_fourth) { create(:post, title: 'fourth post with rate 5', average_rating: 5) }
     let(:json_response) { JSON.parse(response.body) }
 
     before do
@@ -112,7 +112,7 @@ RSpec.describe "Api::V1::PostsController", type: :request do
     end
 
     context 'when n is zero' do
-      let(:n) {0}
+      let(:n) { 0 }
 
       it 'returns status 400 bad request' do
         expect(response).to have_http_status(:bad_request)

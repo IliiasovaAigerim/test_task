@@ -21,3 +21,5 @@ Layout/LineLength:
 RSpec/MultipleExpectations:
   Max: 3
 
+RSpec/MultipleMemoizedHelpers:
+  Max: 10
