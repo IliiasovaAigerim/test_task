@@ -7,7 +7,7 @@ class Api::V1::RatingsController < ApplicationController
       value: rating_params[:value],
     )
     if rating.save
-      render json: { average_rating: post.reload.average_rating }, status: :created
+      render json: { average_rating: Rating.where(post_id: rating_params[:post_id]).pluck("AVG(value)").first.to_f.round(2) }, status: :created
     else
       render json: { errors: rating.errors.full_messages }, status: :unprocessable_entity
     end

@@ -70,17 +70,17 @@ RSpec.describe "Api::V1::PostsController", type: :request do
 
   describe '#top' do
     let(:request) { get "/api/v1/posts/top/#{n}" }
-    let(:post_first) { create(:post, title: 'first post with rate 2', average_rating: 2) }
-    let(:post_second) { create(:post, title: 'second post with rate 5', average_rating: 5) }
-    let(:post_third) { create(:post, title: 'third post with rate 1', average_rating: 1) }
-    let(:post_fourth) { create(:post, title: 'fourth post with rate 5', average_rating: 5) }
+    let(:post_first) { create(:post, title: 'first post with rate 2') }
+    let(:post_second) { create(:post, title: 'second post with rate 5') }
+    let(:post_third) { create(:post, title: 'third post with rate 1') }
+    let(:post_fourth) { create(:post, title: 'fourth post with rate 5') }
     let(:json_response) { JSON.parse(response.body) }
 
     before do
-      post_first
-      post_second
-      post_third
-      post_fourth
+      create(:rating, post: post_first, value: 2)
+      create(:rating, post: post_second, value: 5)
+      create(:rating, post: post_third, value: 1)
+      create(:rating, post: post_fourth, value: 5)
       request
     end
 
@@ -97,6 +97,7 @@ RSpec.describe "Api::V1::PostsController", type: :request do
       end
 
       it 'returns top n posts ordered by average_rating DESC' do
+        puts json_response.inspect
         expect(json_response.first['title']).to eql('second post with rate 5')
         expect(json_response.second['title']).to eql('fourth post with rate 5')
         expect(json_response.third['title']).to eql('first post with rate 2')

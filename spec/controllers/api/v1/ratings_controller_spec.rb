@@ -30,13 +30,6 @@ RSpec.describe "Api::V1::RatingsController", type: :request do
           expect(response).to have_http_status(201)
         end
 
-        it 'updates average rating of the post' do
-          new_post
-          request
-
-          expect(new_post.reload.average_rating).to be(4.0)
-        end
-
         it 'returns new average rating of the post' do
           new_post
           request
@@ -55,10 +48,6 @@ RSpec.describe "Api::V1::RatingsController", type: :request do
         it 'calculates average rating correctly' do
           json_response = JSON.parse(response.body)
           expect(json_response["average_rating"]).to be(3.0)
-        end
-
-        it 'updates average rating correctly' do
-          expect(new_post.reload.average_rating).to be(3.0)
         end
       end
 

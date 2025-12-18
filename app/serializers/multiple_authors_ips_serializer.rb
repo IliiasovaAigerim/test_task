@@ -1,8 +1,8 @@
-class MultipleAuthorsIpsSerializer < ActiveModel::Serializer
-  def initialize(object, options = {})
+class MultipleAuthorsIpsSerializer
+  def initialize(object)
     @object = object
   end
-  def as_json(options = {})
+  def as_json
     @object.map do |ip, logins|
       {
         ip: ip,

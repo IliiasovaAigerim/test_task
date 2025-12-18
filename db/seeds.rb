@@ -2,9 +2,9 @@ require 'faker'
 require 'benchmark'
 require 'json'
 
-NUM_OF_POSTS = 50000
-NUM_OF_USERS = 25
-NUM_OF_UNIQUE_IPS = 12
+NUM_OF_POSTS = 200000
+NUM_OF_USERS = 100
+NUM_OF_UNIQUE_IPS = 50
 THREADS = 15
 
 BASE_URL = 'http://localhost:3000/api/v1'

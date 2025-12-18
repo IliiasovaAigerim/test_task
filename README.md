@@ -62,7 +62,7 @@ ratings remain accurate under high concurrency.
 1. Create a Post
     ````
         POST /api/v1/posts
-        Params: title, body, login, ip
+        Params: user_login, title, body, ip
         Success: Returns post and user attributes.
     ````
 2. Rate a Post

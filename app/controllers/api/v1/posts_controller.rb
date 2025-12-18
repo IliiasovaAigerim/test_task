@@ -1,14 +1,14 @@
 class Api::V1::PostsController < ApplicationController
   def create
-    user = current_user || User.find_or_create_by(login: params[:user_login]) do |u|
+    user = current_user || User.find_or_create_by(login: post_params[:user_login]) do |u|
       u.password = SecureRandom.hex(16)
     end
 
-    ip_address = params[:ip].presence || request.remote_ip
+    ip_address = post_params[:ip].presence || request.remote_ip
 
     post = user.posts.build(
-      title: params[:title],
-      body: params[:body],
+      title: post_params[:title],
+      body: post_params[:body],
       ip: ip_address
     )
     if post.save
@@ -22,9 +22,17 @@ class Api::V1::PostsController < ApplicationController
   end
 
   def top
+    puts 'hit PostController#top'
     n = params[:n].to_i
+    puts n
     return render json: { error: "N must be a positive integer." }, status: :bad_request unless n > 0
-    posts = Post.order(average_rating: :desc).limit(n)
-    render json: posts, each_serializer: TopPostSerializer
+    posts = Post.with_average_rating.order(average_rating: :desc).limit(n)
+    render json: posts.as_json(only: [ :id, :title, :body ])
+  end
+
+  private
+
+  def post_params
+    params.permit(:user_login, :title, :body, :ip)
   end
 end
