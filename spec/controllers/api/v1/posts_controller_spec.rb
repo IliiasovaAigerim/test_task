@@ -97,7 +97,6 @@ RSpec.describe "Api::V1::PostsController", type: :request do
       end
 
       it 'returns top n posts ordered by average_rating DESC' do
-        puts json_response.inspect
         expect(json_response.first['title']).to eql('second post with rate 5')
         expect(json_response.second['title']).to eql('fourth post with rate 5')
         expect(json_response.third['title']).to eql('first post with rate 2')

@@ -22,11 +22,9 @@ class Api::V1::PostsController < ApplicationController
   end
 
   def top
-    puts 'hit PostController#top'
     n = params[:n].to_i
-    puts n
     return render json: { error: "N must be a positive integer." }, status: :bad_request unless n > 0
-    posts = Post.with_average_rating.order(average_rating: :desc).limit(n)
+    posts = Post.with_average_rating.order(average_rating: :desc, id: :asc).limit(n)
     render json: posts.as_json(only: [ :id, :title, :body ])
   end
 

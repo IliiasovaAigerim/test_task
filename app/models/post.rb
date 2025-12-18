@@ -7,7 +7,7 @@ class Post < ApplicationRecord
 
   scope :with_average_rating, -> {
     left_joins(:ratings)
-      .select('posts.id, posts.title, posts.body, COALESCE(AVG(ratings.value), 0) AS average_rating')
-      .group('posts.id')
+      .select("posts.id, posts.title, posts.body, COALESCE(AVG(ratings.value), 0) AS average_rating")
+      .group("posts.id")
   }
 end
