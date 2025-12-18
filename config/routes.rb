@@ -4,7 +4,7 @@ Rails.application.routes.draw do
     namespace :v1 do
       resources :posts, only: [:create]
       resources :ratings, only: [:create]
-      get 'posts/top/:n', to: 'posts#top', constraints: { n: /\d+/ }
+      get 'posts/top/:n', to: 'posts#top', n: /\d+/
       get 'ips', to: 'ips#multiple_authors'
     end
   end
