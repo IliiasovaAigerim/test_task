@@ -62,7 +62,7 @@ ratings remain accurate under high concurrency.
 1. Create a Post
     ````
         POST /api/v1/posts
-        Params: title, body, login, author_ip
+        Params: title, body, login, ip
         Success: Returns post and user attributes.
     ````
 2. Rate a Post
@@ -74,12 +74,12 @@ ratings remain accurate under high concurrency.
     ````
 3. Top N Posts
     ````
-    GET /api/v1/posts/top?limit=10
+    GET /api/v1/posts/top/:n
     Returns: Array of post attributes sorted by average rating.
     ````
 4. Shared IPs
     ````
-    GET /api/v1/ips/shared
+    GET /api/v1/ips
     Returns: List of IPs used by multiple authors and the list of those authors.
     ````
 
