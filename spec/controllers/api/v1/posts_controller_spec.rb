@@ -13,13 +13,7 @@ RSpec.describe "Api::V1::PostsController", type: :request do
     end
     let(:request) { post "/api/v1/posts", params: valid_params, headers: headers }
 
-    shared_examples 'response details' do
-      it "returns status 201" do
-        request
-
-        expect(response).to have_http_status(:created)
-      end
-
+    shared_examples "response details" do
       it "returns created post in JSON" do
         request
         body = JSON.parse(response.body)
@@ -38,27 +32,21 @@ RSpec.describe "Api::V1::PostsController", type: :request do
     end
 
     context 'when login does not exist' do
-      it_behaves_like 'response details'
+      it_behaves_like "response details"
+      it_behaves_like "a created request status"
 
-      it 'creates a new user' do
-        expect { request }.to change(User, :count).by(1)
-      end
+      it('creates a new user') { expect { request }.to change(User, :count).by(1) }
 
-      it "creates a post linked to that user" do
-        expect { request }.to change(Post, :count).by(1)
-      end
+      it("creates a post linked to that user") { expect { request }.to change(Post, :count).by(1) }
     end
 
     context 'when login already exists' do
-      before do
-        user
-      end
+      before { user }
 
       it_behaves_like 'response details'
+      it_behaves_like "a created request status"
 
-      it 'does not create a new user' do
-        expect { request }.not_to change(User, :count)
-      end
+      it('does not create a new user') { expect { request }.not_to change(User, :count) }
 
       it 'creates a new post on the same user' do
         request
@@ -87,14 +75,9 @@ RSpec.describe "Api::V1::PostsController", type: :request do
     context 'when successful request' do
       let(:n) { 3 }
 
+      it_behaves_like "a successful request status"
 
-      it 'returns status 200' do
-        expect(response).to have_http_status(:ok)
-      end
-
-      it 'returns n posts' do
-        expect(json_response.count).to be(3)
-      end
+      it('returns n posts') { expect(json_response.count).to be(3) }
 
       it 'returns top n posts ordered by average_rating DESC' do
         expect(json_response.first['title']).to eql('second post with rate 5')
@@ -102,25 +85,17 @@ RSpec.describe "Api::V1::PostsController", type: :request do
         expect(json_response.third['title']).to eql('first post with rate 2')
       end
 
-      it 'returns only id, title and body' do
-        expect(json_response.first.keys).to include('id', 'title', 'body')
-      end
+      it('returns only id, title and body') { expect(json_response.first.keys).to include('id', 'title', 'body') }
 
-      it 'does not return average_rating, ip and user_id' do
-        expect(json_response.first.keys).not_to include('average_rating', 'ip', 'user_id')
-      end
+      it('does not return average_rating, ip and user_id') { expect(json_response.first.keys).not_to include('average_rating', 'ip', 'user_id') }
     end
 
     context 'when n is zero' do
       let(:n) { 0 }
 
-      it 'returns status 400 bad request' do
-        expect(response).to have_http_status(:bad_request)
-      end
+      it_behaves_like "a bad request status"
 
-      it 'returns error message' do
-        expect(json_response["error"]).to eql('N must be a positive integer.')
-      end
+      it('returns error message') { expect(json_response["error"]).to eql('N must be a positive integer.') }
     end
   end
 end

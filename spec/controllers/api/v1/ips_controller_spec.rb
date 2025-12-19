@@ -12,38 +12,24 @@ RSpec.describe "Api::V1::IpsController", type: :request do
       get "/api/v1/ips", headers: { "Content-Type" => "application/json" }
     end
 
-    shared_examples ':ok status code' do
-      it 'returns 200' do
-        expect(response).to have_http_status(:ok)
-      end
-    end
-
     context 'when there are multiple authors with same ips' do
       let(:n) { 2 }
 
-      it_behaves_like ":ok status code"
+      it_behaves_like "a successful request status"
 
-      it 'returns correct ip' do
-        expect(json_response.first["ip"]).to eql("1.2.3.4")
-      end
+      it('returns correct ip') { expect(json_response.first["ip"]).to eql("1.2.3.4") }
 
-      it 'returns correct number of logins' do
-        expect(json_response.first["login"].count).to be(2)
-      end
+      it('returns correct number of logins') { expect(json_response.first["login"].count).to be(2) }
 
-      it 'does not return ip with single author' do
-        expect(json_response).to all(have_attributes(size: be > 1))
-      end
+      it('does not return ip with single author') { expect(json_response).to all(have_attributes(size: be > 1)) }
     end
 
     context 'when there are no authors with same ips' do
       let(:n) { 1 }
 
-      it_behaves_like ":ok status code"
+      it_behaves_like "a successful request status"
 
-      it 'returns empty array' do
-        expect(json_response).to eql([])
-      end
+      it('returns empty array') { expect(json_response).to eql([]) }
     end
   end
 end

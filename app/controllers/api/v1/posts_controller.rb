@@ -24,7 +24,10 @@ class Api::V1::PostsController < ApplicationController
   def top
     n = params[:n].to_i
     return render json: { error: "N must be a positive integer." }, status: :bad_request unless n > 0
-    posts = Post.with_average_rating.order(average_rating: :desc, id: :asc).limit(n)
+    posts_with_average_rating = Post.left_joins(:ratings)
+                                    .select("posts.id, posts.title, posts.body, COALESCE(AVG(ratings.value), 0) AS average_rating")
+                                    .group("posts.id")
+    posts = posts_with_average_rating.order(average_rating: :desc, id: :asc).limit(n)
     render json: posts.as_json(only: [ :id, :title, :body ])
   end
 

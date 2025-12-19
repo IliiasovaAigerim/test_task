@@ -2,9 +2,7 @@ require 'rails_helper'
 
 RSpec.describe "Api::V1::RatingsController", type: :request do
   describe "#create" do
-    let(:headers) do
-      { "Content-Type" => "application/json" }
-    end
+    let(:headers) { { "Content-Type" => "application/json" } }
     let(:request) { post '/api/v1/ratings', params: request_params, headers: headers }
     let(:user) { create(:user) }
     let(:new_post) { create(:post, user: user) }
@@ -19,15 +17,12 @@ RSpec.describe "Api::V1::RatingsController", type: :request do
       end
 
       context 'when user rates post for the first time' do
+        it_behaves_like "a created request status"
+
         it 'successfully creates rating' do
           new_post
 
           expect { request }.to change(Rating, :count).by(1)
-        end
-
-        it 'returns 201 Created' do
-          request
-          expect(response).to have_http_status(201)
         end
 
         it 'returns new average rating of the post' do
@@ -57,14 +52,9 @@ RSpec.describe "Api::V1::RatingsController", type: :request do
           create(:rating, post: new_post, user: user, value: 5)
         end
 
-        it 'fails to create rating' do
-          expect { request }.not_to change(Rating, :count)
-        end
+        it_behaves_like "an unprocessable request status"
 
-        it 'returns unprocessable_content (422)' do
-          request
-          expect(response).to have_http_status(:unprocessable_content)
-        end
+        it('fails to create rating') { expect { request }.not_to change(Rating, :count) }
 
         it 'returns message' do
           request
@@ -83,19 +73,13 @@ RSpec.describe "Api::V1::RatingsController", type: :request do
         }.to_json
       end
 
-      shared_examples 'response 422' do
-        it 'returns unprocessable_content (422)' do
-          expect(response).to have_http_status(:unprocessable_content)
-        end
-      end
-
       before { request }
 
       context 'when invalid value' do
         let(:user_id) { user.id }
         let(:post_id) { new_post.id }
 
-        shared_examples 'error message' do
+        shared_examples "error message" do
           it 'returns invalid value error message' do
             json_response = JSON.parse(response.body)
             expect(json_response['errors'][0]).to eql("Value must be in 1..5")
@@ -105,15 +89,15 @@ RSpec.describe "Api::V1::RatingsController", type: :request do
         context 'when value is > 5' do
           let(:value) { 6 }
 
-          it_behaves_like 'response 422'
-          it_behaves_like 'error message'
+          it_behaves_like "an unprocessable request status"
+          it_behaves_like "error message"
         end
 
         context 'when value is < 1' do
           let(:value) { 0 }
 
-          it_behaves_like 'response 422'
-          it_behaves_like 'error message'
+          it_behaves_like "an unprocessable request status"
+          it_behaves_like "error message"
         end
       end
 
@@ -122,9 +106,7 @@ RSpec.describe "Api::V1::RatingsController", type: :request do
         let(:user_id) { user.id }
         let(:value) { 5 }
 
-        it 'returns not found (404)' do
-          expect(response).to have_http_status(:not_found)
-        end
+        it_behaves_like "a not found request status"
 
         it 'returns error message' do
           json_response = JSON.parse(response.body)
@@ -137,7 +119,7 @@ RSpec.describe "Api::V1::RatingsController", type: :request do
         let(:user_id) { -1 }
         let(:value) { 5 }
 
-        it_behaves_like 'response 422'
+        it_behaves_like "an unprocessable request status"
 
         it 'returns error message' do
           json_response = JSON.parse(response.body)
