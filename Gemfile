@@ -3,7 +3,7 @@ source "https://rubygems.org"
 ruby "3.4.7"
 
 gem "rails", "~> 8.1.1"
-gem "pg", "~> 1.5"
+gem "pg", "~> 1.6"
 gem "devise"
 gem "active_model_serializers"
 gem "puma", ">= 5.0"
