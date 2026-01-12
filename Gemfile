@@ -2,7 +2,7 @@ source "https://rubygems.org"
 
 ruby "3.4.7"
 
-gem "rails", "~> 8.1.1"
+gem "rails", "~> 8.1.2"
 gem "pg", "~> 1.5"
 gem "devise"
 gem "active_model_serializers"
